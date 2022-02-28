@@ -1,0 +1,42 @@
+.todo-item{
+	background-color: white;
+	/* background-color: rgb(235 235 235); */
+	
+	border-radius: 6px;
+	
+	padding: 15px;
+	
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	justify-content: space-between;
+	
+	transition: 0.5s ease;
+	
+}
+.todo-item.done{
+	color: gray;
+	text-decoration: line-through
+}
+.todo-item:hover{
+	/* background-color: lightskyblue; */
+	/* transform: scale(1.01); */
+}
+
+
+
+
+
+
+
+.shadow-1{
+	
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 
+				0px 1px 1px  0px rgb(0 0 0 / 14%), 
+				0px 1px 3px  0px rgb(0 0 0 / 12%);
+}
+.shadow-2{
+	box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 
+				0px 2px 2px  0px rgb(0 0 0 / 14%), 
+				0px 1px 5px  0px rgb(0 0 0 / 12%);
+}
