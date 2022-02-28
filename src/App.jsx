@@ -1,27 +1,25 @@
-
+import { useState , useEffect } from 'react';
 import './App.css';
 import TodoList from './components/TodoList/TodoList';
+import todoApi from './api/TodoApi';
 
 function App() {
 	
-	var defaultTodos = [
-		{
-			title: "Civic car registration",
-			done: false,
-		},
-		{
-			title: "try mono-tasking with Chris",
-			done: true,
-		},
-		{
-			title: "do laundry",
-			done: false,
-		},
-		{
-			title: "work on ToDo App",
-			done: false,
-		},
-	];
+	const [ todos , setTodos ] = useState( [] );
+	
+	useEffect( () => {
+		
+		const blah = async () => {
+			var fetchedTodos = await todoApi.getAllTodos();
+			setTodos( fetchedTodos );
+		};
+		
+		blah();
+		
+		
+		
+	} , [] );
+	
 	
 	
 	return (
@@ -32,7 +30,7 @@ function App() {
 					Todo App
 				</h1>
 				
-				<TodoList todos={defaultTodos}/>
+				<TodoList todos={todos}/>
 				
 			</div>
 		</div>

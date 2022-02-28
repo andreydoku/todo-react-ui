@@ -13,7 +13,7 @@ function TodoItem({ todo }){
 			{/* <Checkbox checked={todo.done} checkboxClicked={(checked) => checkboxClicked(checked) } /> */}
 			
 			<p>{todo.title}</p>
-			<p>{"done: " + todo.done}</p>
+			<p>{"done: " + todo.isDone}</p>
 			
 		</div>
 		

@@ -13,7 +13,7 @@ function TodoList({ todos }){
 		<div className="todo-list">
 			
 			{todos.map( todo => 
-				<TodoItem todo={todo}/>
+				<TodoItem todo={todo} key={todo.title}/>
 			)}
 			
 		</div>
