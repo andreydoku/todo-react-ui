@@ -14,13 +14,41 @@
 	transition: 0.5s ease;
 	
 }
-.todo-item.done{
+.todo-item.done .todo-title{
 	color: gray;
 	text-decoration: line-through
 }
 .todo-item:hover{
 	/* background-color: lightskyblue; */
 	/* transform: scale(1.01); */
+}
+
+.todo-item .left{
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.check-box{
+	font-size: 20px;
+	cursor: pointer;
+	color: green;
+	
+}
+
+.delete-icon{
+	color: firebrick;
+	cursor: pointer;
+	
+	opacity: 0%;
+	transition: opacity 0.5s;
+}
+
+.delete-icon:hover{
+	opacity: 100% !important;
+}
+.todo-item:hover .delete-icon{
+	opacity: 50%;
 }
 
 
