@@ -20,7 +20,21 @@ function App() {
 		
 	} , [] );
 	
-	
+	const checkboxClicked = async (id,checked) => {
+		
+		// console.log( "todo set to done: "
+		// 		+ "\n\t" + "id: " + id
+		// 		+ "\n\t" + "done: " + checked );
+		
+		var updatedTodo = await todoApi.updateTodo( id , {isDone: checked} );
+		
+		const index = todos.findIndex( todo => todo._id === id );
+		
+		const newTodos = [...todos];
+		newTodos[index] = updatedTodo;
+  		setTodos(newTodos);
+		
+	}
 	
 	return (
 		<div className="todo-app">
@@ -30,7 +44,7 @@ function App() {
 					Todo App
 				</h1>
 				
-				<TodoList todos={todos}/>
+				<TodoList todos={todos} checkboxClicked={ (id,checked)=>checkboxClicked(id,checked) }/>
 				
 			</div>
 		</div>

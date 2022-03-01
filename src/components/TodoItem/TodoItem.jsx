@@ -5,10 +5,13 @@ import { FaRegCheckSquare } from 'react-icons/fa';
 import { FaRegSquare , FaCheckSquare } from 'react-icons/fa';
 
 
-function TodoItem({ todo }){
+function TodoItem({ todo , checkboxClicked }){
+	
+	if( checkboxClicked === undefined )  checkboxClicked = () => {};
 	
 	var className = "todo-item shadow-2";
 	if( todo.isDone ) className += " done";
+	
 	
 	return(
 		
@@ -20,10 +23,9 @@ function TodoItem({ todo }){
 				
 				{todo.isDone ? 
 					// <FaRegCheckSquare className='check-box'/> 
-					<FaCheckSquare className='check-box'/> 
-					
+					<FaCheckSquare className='check-box' onClick={()=>checkboxClicked(todo._id,false)}/> 
 					: 
-					<FaRegSquare className='check-box' /> 
+					<FaRegSquare   className='check-box' onClick={()=>checkboxClicked(todo._id,true)}/> 
 				}
 				
 				<p className='todo-title'>{todo.title}</p>
