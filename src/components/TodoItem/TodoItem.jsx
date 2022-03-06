@@ -1,23 +1,25 @@
 import './TodoItem.css';
 
 import { FaTrash } from 'react-icons/fa';
-import { FaRegCheckSquare } from 'react-icons/fa';
 import { FaRegSquare , FaCheckSquare } from 'react-icons/fa';
+import { useState } from 'react';
 
 
-function TodoItem({ todo , checkboxClicked }){
+function TodoItem({ todo , checkboxClicked , titleChanged }){
 	
 	if( checkboxClicked === undefined )  checkboxClicked = () => {};
+	if( titleChanged === undefined ) titleChanged = () => {}
+	
 	
 	var className = "todo-item shadow-2";
 	if( todo.isDone ) className += " done";
 	
 	
+	
+	
 	return(
 		
 		<div className={className}>
-			
-			{/* <Checkbox checked={todo.done} checkboxClicked={(checked) => checkboxClicked(checked) } /> */}
 			
 			<div className='left'>
 				
@@ -28,16 +30,20 @@ function TodoItem({ todo , checkboxClicked }){
 					<FaRegSquare   className='check-box' onClick={()=>checkboxClicked(todo._id,true)}/> 
 				}
 				
-				<p className='todo-title'>{todo.title}</p>
+				{/* <p className='todo-title'>{todo.title}</p> */}
+				
+				
+				
+				
+				<TitleField 
+					title={todo.title} 
+					onTitleChange={ (newTitle) => titleChanged(todo._id,newTitle) }
+				/>
+				
+				
 			</div>
 			
-			
-			{/* <p>{"done: " + todo.isDone}</p> */}
-			
 			<FaTrash className='delete-icon'/>
-			
-			
-			
 			
 		</div>
 		
@@ -45,4 +51,55 @@ function TodoItem({ todo , checkboxClicked }){
 	
 }
 export default TodoItem;
+
+
+function TitleField({ title , onTitleChange }){
+	
+	const [ text , setText ] = useState( title );
+	
+	if( onTitleChange === undefined ) onTitleChange = () => {}
+	
+	function handleSubmit(e){
+		
+		e.preventDefault();
+		
+		e.target.children[0].blur();
+		
+	}
+	
+	function handleTextChange(e){
+		
+		setText( e.target.value );
+		
+	}
+	function handleFocusLost(e){
+		
+		if( text !== title ){
+			setText( title );
+			onTitleChange( text );
+		}
+		
+	}
+	
+	return(
+		
+		<form onSubmit={ (e) => handleSubmit(e) }>
+			
+			<input 
+				type="text" 
+				value={text} 
+				onChange={ (e) => handleTextChange(e) }
+				onBlur={ (e) => handleFocusLost(e) }
+				className="title-field"
+			/>
+			
+		</form>
+		
+	);
+	
+	
+}
+
+
+
 

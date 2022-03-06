@@ -36,6 +36,23 @@ function App() {
 		
 	}
 	
+	async function titleChanged( id, newTitle ){
+		
+		console.log( "title changed: " 
+			+ "\n\t" + "new title: " + newTitle 
+			+ "\n\t" + "id: " + id 
+		);
+		
+		var updatedTodo = await todoApi.updateTodo( id , {title: newTitle} );
+		
+		const index = todos.findIndex( todo => todo._id === id );
+		
+		const newTodos = [...todos];
+		newTodos[index] = updatedTodo;
+  		setTodos(newTodos);
+		
+	}
+	
 	return (
 		<div className="todo-app">
 			<div className="page-content">
@@ -44,7 +61,11 @@ function App() {
 					Todo App
 				</h1>
 				
-				<TodoList todos={todos} checkboxClicked={ (id,checked)=>checkboxClicked(id,checked) }/>
+				<TodoList 
+					todos={todos} 
+					checkboxClicked={ (id,checked)=>checkboxClicked(id,checked) }
+					titleChanged={ (id,newTitle) => titleChanged(id,newTitle) }
+				/>
 				
 			</div>
 		</div>

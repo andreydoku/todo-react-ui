@@ -15,8 +15,9 @@ body, #root, .todo-app{
 	margin: 0;
 }
 
-h1,p{
+h1,h2,h3,p,input{
 	margin: 0;
+	font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -49,7 +50,7 @@ h1,p{
 	
 	
 	/* color: white; */
-	color: #525183;
+	color:#d47b87;
 }
 
 
