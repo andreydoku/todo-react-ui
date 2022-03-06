@@ -2,14 +2,14 @@ import './TodoItem.css';
 
 import { FaTrash } from 'react-icons/fa';
 import { FaRegSquare , FaCheckSquare } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 
 
-function TodoItem({ todo , checkboxClicked , titleChanged }){
+function TodoItem({ todo , checkboxClicked , titleChanged , deleteClicked }){
 	
 	if( checkboxClicked === undefined )  checkboxClicked = () => {};
 	if( titleChanged === undefined ) titleChanged = () => {}
-	
+	if( deleteClicked === undefined ) deleteClicked = () => {}
 	
 	var className = "todo-item shadow-2";
 	if( todo.isDone ) className += " done";
@@ -25,25 +25,29 @@ function TodoItem({ todo , checkboxClicked , titleChanged }){
 				
 				{todo.isDone ? 
 					// <FaRegCheckSquare className='check-box'/> 
-					<FaCheckSquare className='check-box' onClick={()=>checkboxClicked(todo._id,false)}/> 
+					<FaCheckSquare 
+						className='check-box' 
+						onClick={ () => checkboxClicked( todo._id ,false )}
+					/> 
 					: 
-					<FaRegSquare   className='check-box' onClick={()=>checkboxClicked(todo._id,true)}/> 
+					<FaRegSquare   
+						className='check-box' 
+						onClick={ () => checkboxClicked( todo._id , true ) }
+					/> 
 				}
-				
-				{/* <p className='todo-title'>{todo.title}</p> */}
-				
-				
-				
 				
 				<TitleField 
 					title={todo.title} 
-					onTitleChange={ (newTitle) => titleChanged(todo._id,newTitle) }
+					onTitleChange={ (newTitle) => titleChanged( todo._id , newTitle ) }
 				/>
 				
 				
 			</div>
 			
-			<FaTrash className='delete-icon'/>
+			<FaTrash 
+				className='delete-icon'
+				onClick={ () => deleteClicked( todo._id ) }
+			/>
 			
 		</div>
 		
@@ -56,6 +60,12 @@ export default TodoItem;
 function TitleField({ title , onTitleChange }){
 	
 	const [ text , setText ] = useState( title );
+	useEffect( () => {
+		
+		setText( title );
+		
+	} , [title] );
+	
 	
 	if( onTitleChange === undefined ) onTitleChange = () => {}
 	

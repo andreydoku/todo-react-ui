@@ -2,7 +2,7 @@ import './TodoList.css';
 import TodoItem from "../TodoItem/TodoItem";
 
 
-function TodoList({ todos , checkboxClicked , titleChanged }){
+function TodoList({ todos , checkboxClicked , titleChanged , deleteClicked }){
 	
 	if( todos === undefined ){
 		todos = [];
@@ -24,9 +24,10 @@ function TodoList({ todos , checkboxClicked , titleChanged }){
 			{todos.map( todo => 
 				<TodoItem 
 					todo={todo} 
-					key={todo.title} 
-					checkboxClicked={(id,checked)=>checkboxClicked(id,checked)}
+					key={todo._id} 
+					checkboxClicked={ (id,checked) => checkboxClicked(id,checked) }
 					titleChanged={ (id,newTitle) => titleChanged(id,newTitle) }
+					deleteClicked={ (id) => deleteClicked(id) }
 				/>
 			)}
 			

@@ -1,5 +1,6 @@
 import { useState , useEffect } from 'react';
 import './App.css';
+import AddTaskButton from './components/AddTaskButton/AddTaskButton';
 import TodoList from './components/TodoList/TodoList';
 import todoApi from './api/TodoApi';
 
@@ -9,16 +10,20 @@ function App() {
 	
 	useEffect( () => {
 		
-		const blah = async () => {
-			var fetchedTodos = await todoApi.getAllTodos();
-			setTodos( fetchedTodos );
-		};
 		
-		blah();
+		
+		fetchAllTodos();
 		
 		
 		
 	} , [] );
+	
+	const fetchAllTodos = async () => {
+		var fetchedTodos = await todoApi.getAllTodos();
+		setTodos( fetchedTodos );
+	};
+	
+	
 	
 	const checkboxClicked = async (id,checked) => {
 		
@@ -49,9 +54,44 @@ function App() {
 		
 		const newTodos = [...todos];
 		newTodos[index] = updatedTodo;
+		
+		console.log( newTodos );
   		setTodos(newTodos);
 		
 	}
+	
+	async function deleteClicked( id ){
+		
+		console.log( "delete clicked: " 
+			+ "\n\t" + "id: " + id
+		);
+		
+		const deletedTodo = await todoApi.deleteTodo( id );
+		
+		const newTodos = todos.filter( todo => todo._id !== deletedTodo._id );
+  		setTodos(newTodos);
+		
+	}
+	
+	async function addTaskClicked(){
+		
+		console.log( "add task clicked" );
+		
+		var newTodo = {
+			title: "new task",
+			isDone: false
+		}
+		
+		const addedTodo = await todoApi.addTodo( newTodo );
+		console.log( addedTodo );
+		
+		const newTodos = [...todos];
+		newTodos.push( addedTodo );
+		
+		setTodos( newTodos );
+		
+	}
+	
 	
 	return (
 		<div className="todo-app">
@@ -61,10 +101,13 @@ function App() {
 					Todo App
 				</h1>
 				
+				<AddTaskButton onClick={() => addTaskClicked()}/>
+				
 				<TodoList 
 					todos={todos} 
 					checkboxClicked={ (id,checked)=>checkboxClicked(id,checked) }
 					titleChanged={ (id,newTitle) => titleChanged(id,newTitle) }
+					deleteClicked={ (id) => deleteClicked(id) }
 				/>
 				
 			</div>
