@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// var hostUrl = "https://andrey-todo-rest-api.herokuapp.com";
-var hostUrl = "http://localhost:5002";
+var hostUrl = "https://andrey-todo-rest-api.herokuapp.com";
+// var hostUrl = "http://localhost:5002";
 
 
 var TodoApi = {
